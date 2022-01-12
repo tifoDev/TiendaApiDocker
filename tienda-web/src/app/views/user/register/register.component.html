@@ -1,0 +1,14 @@
+﻿<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <label>Email</label>
+            <input class="form-control" [(ngModel)]="data.email" [placeholder]="'example@mail.com'" />
+        </div>
+        <div class="col-12">
+            <label>Password</label>
+            <input type="password" class="form-control" [(ngModel)]="data.password" />
+        </div>
+        <button class="btn btn-info" (click)="register()" [disabled]="!(data?.email && data?.password)">Register</button>
+
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿<!--<div>
+    <ul>
+        <li *ngFor="let p of storeSvc.products">{{p.title}}</li>
+    </ul>
+</div>-->
+
+<div class="row">
+    <div *ngFor="let p of storeSvc.products" class="col-md-4">
+        <div class="border bg-light rounded p-1">
+            <img src="assets/img/{{p.artId}}.jpg" class="img-fluid product-image" alt="{{p.title}}" />
+            <h3>{{p.category}} - {{p.size}}</h3>
+            <ul class="products-props">
+                <li>Price: {{p.price | currency}}</li>
+                <li>Artist: {{p.artist}}</li>
+                <li>Title: {{p.title}}</li>
+                <li style="max-height: 10vh;overflow: scroll;">{{p.artDescription}}</li>
+            </ul>
+            <button class="btn btn-success" (click)="addToOrder(p)">Buy</button>
+        </div>
+    </div>
+</div>

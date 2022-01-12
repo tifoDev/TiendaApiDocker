@@ -1,0 +1,99 @@
+version: '3.9'
+
+services:
+  
+  authdb:
+    build:
+      context: .
+      dockerfile: DbContainers/sqlserverauth/Dockerfile
+      args:
+      - SA_PASSWORD=ContraAuth2022
+      - ACCEPT_EULA=Y
+    # volumes:
+    #   - volproductsdb:/SQLServer
+    ports:
+      - '5000:1433'
+    networks:
+      - tiendaapi-network
+
+  productsdb:
+    build:
+      context: .
+      dockerfile: DbContainers/sqlserverproducts/Dockerfile
+      args:
+      - SA_PASSWORD=ContraProds2022
+      - ACCEPT_EULA=Y
+    # volumes:
+    #   - volproductsdb:/SQLServer
+    ports:
+      - '5001:1433'
+    networks:
+      - tiendaapi-network
+
+  ordersdb:
+    build:
+      context: .
+      dockerfile: DbContainers/sqlserverorders/Dockerfile
+      args:
+      - SA_PASSWORD=ContraOrders2022
+      - ACCEPT_EULA=Y
+    # volumes:
+    #   - volproductsdb:/SQLServer
+    ports:
+      - '5002:1433'
+    networks:
+      - tiendaapi-network
+
+  authapi:
+    build: 
+      context: .
+      dockerfile: AuthApi/Dockerfile
+    ports:
+      - '9090:9090'
+    networks:
+      - tiendaapi-network
+    depends_on:
+      - authdb
+    env_file:
+      - .env
+
+  productapi:
+    build: 
+      context: .
+      dockerfile: ProductApi/Dockerfile
+    ports:
+      - '9091:9091'
+    networks:
+      - tiendaapi-network
+    depends_on:
+      - productsdb
+    env_file:
+      - .env
+      
+  orderapi:
+    build: 
+      context: .
+      dockerfile: OrderApi/Dockerfile
+    ports:
+      - '9092:9092'
+    networks:
+      - tiendaapi-network
+    depends_on:
+      - ordersdb
+    env_file:
+      - .env
+  
+  # tiendaweb:
+  #     build:
+  #       context: .
+  #       dockerfile: tienda-web/Dockerfile
+  #     ports:
+  #       - '8000:80'
+  #     networks:
+  #     - tiendaapi-network
+
+networks:
+  tiendaapi-network:
+
+# volumes:
+#   mssql:

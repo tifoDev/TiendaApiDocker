@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.product-image {
+    border: 1px #ddd solid;
+    box-shadow: rgba(0,0,0,.4) 2px 2px;
+    margin: 2px;
+}
+
+
+
+.product-props {
+    font-size: .9rem;
+}
+
+
+.product-thumb {
+    max-width: 50px;
+}

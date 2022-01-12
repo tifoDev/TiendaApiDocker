@@ -1,0 +1,28 @@
+﻿<div>Count: {{storeSvc?.order?.items?.length}}</div>
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of storeSvc?.order?.items">
+            <td> <img src="assets/img/{{item.productArtId}}.jpg" class="img-fluid product-thumb" /></td>
+            <td>{{item.productTitle}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.unitPrice | currency }}</td>
+            <td>{{(item.quantity * item.unitPrice) | currency}}</td>
+        </tr>
+    </tbody>
+</table>
+<div><b>Subtotal:</b>{{storeSvc?.order?.subtotal | currency}}</div>
+<div>
+    <button class="btn btn-success" (click)="checkout()" [disabled]="!(storeSvc?.order?.items?.length)">Checkout Order</button>
+</div>
+
+<hr />
